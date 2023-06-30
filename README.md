@@ -1,3 +1,3 @@
-# CPP Template
+# OpenGL samples  with C++
 
-This is a template to start a cpp project
+Some samples to understand and try openGL 
