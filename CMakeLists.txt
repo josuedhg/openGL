@@ -1,23 +1,20 @@
 cmake_minimum_required(VERSION 3.18)
 
 project(cpp-template)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 set( CMAKE_CXX_FLAGS "-g -Wall -Wl,--no-as-needed -ldl" )
 
 include(CTest)
 include(GNUInstallDirs)
 include(CMakeOptions.txt)
 
-if(${COVERAGE})
-	include(CodeCoverage)
-endif(${COVERAGE})
+find_package(OpenGL REQUIRED)
+find_package(GLEW REQUIRED)
+find_package(PkgConfig REQUIRED)
 
-if(${TESTS})
-add_subdirectory(tests)
-	if(${COVERAGE})
-		coverage_target(. */lib/* check)
-	endif(${COVERAGE})
-endif(${TESTS})
+pkg_check_modules(GLFW REQUIRED glfw3)
 
-message(STATUS "TESTS " ${TESTS})
-message(STATUS "COVERAGE " ${COVERAGE})
+add_subdirectory(src)
+
+message(STATUS "GLFW " ${GLFW_LIBRARIES})
+message(STATUS "GLEW " ${GLEW_LIBRARIES})
+message(STATUS "OPENGL " ${OPENGL_LIBRARIES})
